@@ -7,13 +7,13 @@ pipeline{
         stage('Test'){
             steps{
                 echo 'testing...'
-                    sh 'mvn test'
+                    sh 'mvn test -P prod'
                 }
             }
         stage('Build'){
             steps{
                 echo 'build...'
-                sh 'mvn -DskipTests clean install'
+                sh 'mvn -DskipTests clean install -P prod'
             }
         }
         stage('Deploy'){

@@ -1,5 +1,17 @@
 server:
   port: 9091
 
+spring:
+  profiles:
+    active: @spring.profiles.active@
+
+---
+spring:
+  profiles: "dev"
 beer:
   apiHost: http://localhost:9090
+---
+spring:
+  profiles: "prod"
+beer:
+  apiHost: http://beer:9090
