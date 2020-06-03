@@ -6,7 +6,8 @@ pipeline{
     stages{
         stage('Test'){
             steps{
-                echo 'testing...'
+                    echo 'testing...'
+                    echo 'test fails because I dont have running database!!!'
                     sh 'mvn test -P prod'
                 }
             }
