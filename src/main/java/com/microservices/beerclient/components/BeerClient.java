@@ -3,8 +3,8 @@ package com.microservices.beerclient.components;
 import com.microservices.beerclient.model.BeerDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.boot.web.client.RestTemplateBuilder;
+import org.springframework.http.HttpEntity;
 import org.springframework.stereotype.Component;
 import org.springframework.web.client.RestTemplate;
 
@@ -18,12 +18,26 @@ public class BeerClient {
     private final RestTemplate restTemplate;
 
     @Autowired
-    public BeerClient(@Value("${beer.apiHost}")String apiHost, RestTemplateBuilder restTemplateBuilder) {
+    public BeerClient(@Value("${beer.apiHost}") String apiHost, RestTemplateBuilder restTemplateBuilder) {
         this.apiHost = apiHost;
         this.restTemplate = restTemplateBuilder.build();
     }
 
-    public BeerDto getBeerById(Long id){
+    public BeerDto getBeerById(Long id) {
         return restTemplate.getForObject(apiHost + BEER_URI_V1 + id.toString(), BeerDto.class);
+    }
+
+    public BeerDto addNewBeer(BeerDto beerDto) {
+        HttpEntity<BeerDto> request = new HttpEntity<>(beerDto);
+        return restTemplate.postForObject(apiHost + BEER_URI_V1, request, BeerDto.class);
+    }
+
+    public void updateBeer(BeerDto beerDto) {
+        HttpEntity<BeerDto> request = new HttpEntity<>(beerDto);
+        restTemplate.put(apiHost + BEER_URI_V1, request, BeerDto.class);
+    }
+
+    public void deleteBeer(Long id) {
+        restTemplate.delete(apiHost + BEER_URI_V1 + id);
     }
 }
