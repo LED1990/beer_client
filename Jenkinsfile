@@ -7,7 +7,7 @@ pipeline{
         stage('Test'){
             steps{
                 script {
-                        echo 'testing prod...'
+                        echo 'testing...'
                         sh 'mvn test -P prod'
                         if(GIT_BRANCH == 'integration'){
                             echo 'testing integration...'
