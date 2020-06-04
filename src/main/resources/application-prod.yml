@@ -1,0 +1,4 @@
+spring:
+  profiles: "prod"
+beer:
+  apiHost: http://beer:9090

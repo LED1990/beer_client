@@ -1,0 +1,4 @@
+spring:
+  profiles: "integration"
+beer:
+  apiHost: http://localhost:9090

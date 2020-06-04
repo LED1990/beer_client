@@ -6,9 +6,20 @@ pipeline{
     stages{
         stage('Test'){
             steps{
-                    echo 'testing...'
-                    echo 'test fails because I dont have running database!!!'
-                    sh 'mvn test -P prod'
+                script {
+                        if(GIT_BRANCH == 'develop'){
+                            echo 'testing development...'
+                            sh 'mvn test -P dev'
+                        }
+                        if(GIT_BRANCH == 'integration'){
+                            echo 'testing integration...'
+                            sh 'mvn test -P integration'
+                        }
+                        if(GIT_BRANCH == 'master'){
+                            echo 'testing prod...'
+                            sh 'mvn test -P prod'
+                        }
+                    }
                 }
             }
         stage('Build'){

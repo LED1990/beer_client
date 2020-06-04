@@ -5,14 +5,14 @@ import com.microservices.beerclient.model.BeerStyleEnum;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.test.context.ActiveProfiles;
+import org.springframework.test.context.junit.jupiter.EnabledIf;
 
 import java.math.BigDecimal;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 
-@ActiveProfiles(profiles = {"dev"})
+@EnabledIf(expression = "#{environment['spring.profiles.active'] == 'integration'}", loadContext = true)
 @SpringBootTest
 class BeerClientTest {
 
@@ -22,7 +22,7 @@ class BeerClientTest {
     @Test
     void getBeerById() {
         //given
-        BeerDto beerDto = beerClient.getBeerById(10L);
+        BeerDto beerDto = beerClient.getBeerById(1L);
 
         assertNotNull(beerDto);
         assertEquals(1L, (long) beerDto.getId());

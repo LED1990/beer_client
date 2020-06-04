@@ -1,0 +1,4 @@
+spring:
+  profiles: "dev"
+beer:
+  apiHost: http://localhost:9090
