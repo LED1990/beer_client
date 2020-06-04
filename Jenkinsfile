@@ -7,17 +7,11 @@ pipeline{
         stage('Test'){
             steps{
                 script {
-                        if(GIT_BRANCH == 'develop'){
-                            echo 'testing development...'
-                            sh 'mvn test -P dev'
-                        }
+                        echo 'testing prod...'
+                        sh 'mvn test -P prod'
                         if(GIT_BRANCH == 'integration'){
                             echo 'testing integration...'
                             sh 'mvn test -P integration'
-                        }
-                        if(GIT_BRANCH == 'master'){
-                            echo 'testing prod...'
-                            sh 'mvn test -P prod'
                         }
                     }
                 }
